@@ -28,8 +28,32 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <p>
+        <Profile />
+      </p>
     </>
   )
 }
 
 export default App
+
+const user = {
+  name: 'Dennis Bui',
+  avatar: 'https://i.imgur.com/yXOvdOSs.jpg',
+  imageSise: 90
+};
+
+export function Profile() {
+  return (
+    <>
+      <p>
+        {user.name}
+      </p>
+
+      <img className='avatar' src={user.avatar} style={
+        { width: user.imageSise, height: user.imageSise, borderRadius: user.imageSise / 2 }
+      } />
+    </>
+  )
+}
