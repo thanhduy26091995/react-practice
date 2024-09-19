@@ -29,9 +29,11 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
 
-      <p>
-        <Profile />
-      </p>
+      <Profile />
+
+      <div>
+        <EngineerList />
+      </div>
     </>
   )
 }
@@ -43,6 +45,64 @@ const user = {
   avatar: 'https://i.imgur.com/yXOvdOSs.jpg',
   imageSise: 90
 };
+
+const engineers = [
+  {
+    title: 'Dennis Bui',
+    role: 'Senior Mobile Developer',
+    id: 1
+  },
+  {
+    title: 'Harland Nguyen',
+    role: 'Senior Mobile Developer',
+    id: 2
+  },
+  {
+    title: 'John Pham',
+    role: 'Senior Mobile Developer',
+    id: 3
+  },
+  {
+    title: 'Leo',
+    role: 'Senior Mobile Developer',
+    id: 4
+  }
+];
+
+export function EngineerList() {
+  function onNameClick(title) {
+    // alert('You have clicked on: ' + title);
+    setCount(count + 1);
+  }
+
+  const [count, setCount] = useState(0);
+
+  const listEngineer = engineers.map(engineer =>
+    <li
+      key={engineer.id}
+    >
+      <div style={{
+        alignItems: 'start',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <div className='title' onClick={() => onNameClick(engineer.title)} style={{ cursor: 'pointer' }}>
+          {engineer.title}
+        </div>
+        <div className='title'>
+          {engineer.role}
+        </div>
+        <p>
+          Count time: {count}
+        </p>
+      </div>
+    </li>
+  );
+
+  return (
+    <ul>{listEngineer}</ul>
+  );
+}
 
 export function Profile() {
   return (
@@ -57,3 +117,4 @@ export function Profile() {
     </>
   )
 }
+
