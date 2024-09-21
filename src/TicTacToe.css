@@ -6,6 +6,7 @@ body {
     font-family: sans-serif;
     margin: 20px;
     padding: 0;
+    width: 100%;
 }
 
 .square {
@@ -24,8 +25,33 @@ body {
     color: black;
 }
 
+.square.highlight {
+    background: #0af72a;
+}
+
 .board-row::after {
     clear: both;
     content: '';
     display: table;
+}
+
+.status {
+    align-items: start;
+}
+
+.game {
+    display: flex;
+    flex-direction: row;
+}
+
+.game-info {
+    align-items: start;
+}
+
+th {
+    padding-top: 2px;
+}
+
+td {
+    padding-right: 40px;
 }
