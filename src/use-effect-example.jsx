@@ -2,10 +2,29 @@ import { useEffect, useRef, useState } from "react";
 import { createConnection } from "./chat";
 import { FadeInAnimation } from "./animation";
 import { useChatRoom } from "./use-chat-room";
+import Map from "./map";
 
 export default function UseEffectExampleApp() {
     return (
-        <ChatRoomDefaultHook />
+        <NonReactWidgetApp />
+    );
+}
+
+function NonReactWidgetApp() {
+    const [zoomLevel, setZoomLevel] = useState(0);
+    return (
+        <>
+            Zoom Level: {zoomLevel}X
+            <button onClick={() => setZoomLevel(zoomLevel + 1)}>
+                +
+            </button>
+
+            <button onClick={() => setZoomLevel(zoomLevel - 1)}>
+                -
+            </button>
+
+            <Map zoomLevel={zoomLevel} />
+        </>
     );
 }
 
