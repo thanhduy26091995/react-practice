@@ -5,9 +5,10 @@ import Game from './TicTacToe.jsx'
 import App from './FilterableProduct.jsx'
 import Stopwatch from './App.jsx'
 import UseEffectExampleApp from './use-effect-example.jsx'
+import UseContextExampleApp from './use-context-example.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <UseEffectExampleApp />
+    <UseContextExampleApp />
   </StrictMode>,
 )
