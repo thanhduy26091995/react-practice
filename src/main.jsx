@@ -1,14 +1,33 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import Game from './TicTacToe.jsx'
-import App from './FilterableProduct.jsx'
-import Stopwatch from './App.jsx'
-import UseEffectExampleApp from './use-effect-example.jsx'
-import UseContextExampleApp from './use-context-example.jsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import "./router.css"
+import Root, { loader as rootLoader, action as rootAction } from './routes/root'
+import ErrorPage from './error-page'
+import Contact from './routes/contact'
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    action: rootAction,
+    children: [
+      {
+        path: "contacts/:contactId",
+        element: <Contact />
+      }
+    ]
+  },
+
+]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <UseContextExampleApp />
+    <RouterProvider router={router}>
+
+    </RouterProvider>
   </StrictMode>,
 )
