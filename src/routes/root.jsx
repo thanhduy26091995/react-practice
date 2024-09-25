@@ -1,77 +1,89 @@
-import { Form, Link, Outlet, useLoaderData } from "react-router-dom";
-import { createContact, getContacts } from "../contact";
+import {
+  Form,
+  Link,
+  NavLink,
+  Outlet,
+  redirect,
+  useLoaderData,
+  useNavigation,
+} from "react-router-dom";
+import { createContact, getContact, getContacts } from "../contact";
 
 export async function loader() {
-    const contacts = await getContacts();
-    return { contacts };
+  const contacts = await getContacts();
+  return { contacts };
 }
 
 export async function action() {
-    const contact = await createContact();
-    return { contact };
+  const contact = await createContact();
+  return redirect(`/contacts/${contact.id}/edit`);
 }
 
 export default function Root() {
-    const { contacts } = useLoaderData();
+  const { contacts } = useLoaderData();
+  const navigation = useNavigation();
 
-    return (
-        <>
-            <div id="sidebar">
-                <h1>React Router Contacts</h1>
-                <div>
-                    <form id="search-form" role="search">
-                        <input
-                            id="q"
-                            aria-label="Search contacts"
-                            placeholder="Search"
-                            type="search"
-                            name="q">
-                        </input>
+  return (
+    <>
+      <div id="sidebar">
+        <h1>React Router Contacts</h1>
+        <div>
+          <form id="search-form" role="search">
+            <input
+              id="q"
+              aria-label="Search contacts"
+              placeholder="Search"
+              type="search"
+              name="q"
+            ></input>
 
-                        <div id="search-spinner" aria-hidden hidden={true}>
+            <div id="search-spinner" aria-hidden hidden={true}></div>
 
-                        </div>
+            <div className="sr-only" aria-live="polite"></div>
+          </form>
 
-                        <div
-                            className="sr-only"
-                            aria-live="polite"
-                        ></div>
-                    </form>
+          <Form method="POST">
+            <button type="submit">New</button>
+          </Form>
+        </div>
 
-                    <Form method="POST">
-                        <button type="submit">New</button>
-                    </Form>
-                </div>
-
-                <nav>
-                    {contacts.length ? (
-                        <ul>
-                            {contacts.map((contact) => (
-                                <li key={contact.id}>
-                                    <Link to={`contacts/${contact.id}`}>
-                                        {contact.first || contact.last ? (
-                                            <>
-                                                {contact.first} {contact.last}
-                                            </>
-                                        ) : (
-                                            <i>No Name</i>
-                                        )}{" "}
-                                        {contact.favorite && <span>★</span>}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
+        <nav>
+          {contacts.length ? (
+            <ul>
+              {contacts.map((contact) => (
+                <li key={contact.id}>
+                  <NavLink
+                    to={`contacts/${contact.id}`}
+                    className={({ isActive, isPending }) =>
+                      isActive ? "active" : isPending ? "pending" : ""
+                    }
+                  >
+                    {contact.first || contact.last ? (
+                      <>
+                        {contact.first} {contact.last}
+                      </>
                     ) : (
-                        <p>
-                            <i>No contacts</i>
-                        </p>
-                    )}
-                </nav>
-            </div>
+                      <i>No Name</i>
+                    )}{" "}
+                    {contact.favorite && <span>★</span>}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>
+              <i>No contacts</i>
+            </p>
+          )}
+        </nav>
+      </div>
 
-            <div id="detail">
-                <Outlet />
-            </div>
-        </>
-    );
+      <div
+        id="detail"
+        className={navigation.state === "loading" ? "loading" : ""}
+      >
+        <Outlet />
+      </div>
+    </>
+  );
 }
