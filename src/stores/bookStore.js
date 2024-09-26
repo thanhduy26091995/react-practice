@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 const bookStore = (set, get) => ({
   books: [],
@@ -6,13 +7,7 @@ const bookStore = (set, get) => ({
   noOfIssued: 0,
   addBook: (book) => {
     set((state) => ({
-      books: [
-        ...state.books,
-        {
-          ...book,
-          status: "available",
-        },
-      ],
+      books: [...state.books, { ...book, status: "available" }],
       noOfAvailable: state.noOfAvailable + 1,
     }));
   },
@@ -28,7 +23,6 @@ const bookStore = (set, get) => ({
         return book;
       }
     });
-
     set((state) => ({
       books: updatedBooks,
       noOfAvailable: state.noOfAvailable - 1,
@@ -47,7 +41,6 @@ const bookStore = (set, get) => ({
         return book;
       }
     });
-
     set((state) => ({
       books: updatedBooks,
       noOfAvailable: state.noOfAvailable + 1,
@@ -63,6 +56,6 @@ const bookStore = (set, get) => ({
   },
 });
 
-const useBookStore = create(bookStore);
+const useBookStore = create(devtools(bookStore));
 
 export default useBookStore;

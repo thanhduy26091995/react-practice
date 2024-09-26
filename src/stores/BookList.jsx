@@ -1,22 +1,25 @@
 import { Fragment } from "react";
 import useBookStore from "./bookStore";
+import { useShallow } from "zustand/shallow";
 
-export default function BookList() {
+function BookList() {
   const { books, noOfAvailable, noOfIssued, issueBook, returnBook } =
-    useBookStore((state) => ({
-      books: state.books,
-      noOfAvailable: state.noOfAvailable,
-      noOfIssued: state.noOfIssued,
-      issueBook: state.issueBook,
-      returnBook: state.returnBook,
-    }));
-
+    useBookStore(
+      useShallow((state) => ({
+        books: state.books,
+        noOfAvailable: state.noOfAvailable,
+        noOfIssued: state.noOfIssued,
+        issueBook: state.issueBook,
+        returnBook: state.returnBook,
+      }))
+    );
+    
   return (
     <ul className="book-list">
       {!!books?.length && (
-        <span className="book-count">
+        <span className="books-count">
           <h4>Available: {noOfAvailable}</h4>
-          <h4>Issued: {noOfAvailable}</h4>
+          <h4>Issued: {noOfIssued}</h4>
         </span>
       )}
       {books?.map((book) => {
@@ -30,26 +33,21 @@ export default function BookList() {
               </span>
               <div className="btn-grp">
                 <button
+                  onClick={() => issueBook(book.id)}
                   className={`issue-btn ${
                     book.status === "issued" ? "disabled" : ""
                   }`}
                   disabled={book.status === "issued"}
-                  onClick={() => {
-                    issueBook(book.id);
-                  }}
                 >
                   {" "}
                   Issue{" "}
                 </button>
-
                 <button
+                  onClick={() => returnBook(book.id)}
                   className={`return-btn ${
                     book.status === "available" ? "disabled" : ""
                   }`}
                   disabled={book.status === "available"}
-                  onClick={() => {
-                    returnBook(book.id);
-                  }}
                 >
                   {" "}
                   Return{" "}
@@ -62,3 +60,5 @@ export default function BookList() {
     </ul>
   );
 }
+
+export default BookList;
