@@ -17,6 +17,7 @@ import { action as destroyAction } from "./routes/destroy";
 import Index from "./routes";
 import BookStoreApp from "./stores/BookStoreApp";
 import MovieApp from "./movies/MovieApp";
+import AxiosApp from "./axios/AxiosApp";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <MovieApp />
+    <AxiosApp />
   </StrictMode>
 );
