@@ -16,6 +16,7 @@ import EditContact, { action as editAction } from "./routes/edit";
 import { action as destroyAction } from "./routes/destroy";
 import Index from "./routes";
 import BookStoreApp from "./stores/BookStoreApp";
+import MovieApp from "./movies/MovieApp";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-   
-    <BookStoreApp/>
+    <MovieApp />
   </StrictMode>
 );

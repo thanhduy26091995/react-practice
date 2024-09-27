@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useBookStore from "./bookStore";
-import "./BookStore.css";
+import "../App.css";
 
 export default function BookForm() {
   const addBook = useBookStore((state) => state.addBook);
@@ -19,36 +19,34 @@ export default function BookForm() {
   }
 
   return (
-    <div className="input-div">
+    <div className="input-container">
       <div className="input-grp">
-        <label>Book ID</label>
+        <label className="font-medium">Book ID</label>
         <input
+          className="mt-1"
           type="text"
           name="id"
           size={50}
-          style={{ color: "black", marginLeft: "15px" }}
           onChange={handleOnChange}
         ></input>
       </div>
 
-      <div className="input-grp">
-        <label>Book Name</label>
+      <div className="input-container">
+        <label className="font-medium">Book Name</label>
         <input
           type="text"
           name="name"
           size={50}
-          style={{ color: "black", marginLeft: "15px" }}
           onChange={handleOnChange}
         ></input>
       </div>
 
-      <div className="input-grp">
-        <label>Author</label>
+      <div className="input-container">
+        <label className="font-medium mt-2 ml-2">Author</label>
         <input
           type="text"
           name="author"
           size={50}
-          style={{ color: "black", marginLeft: "15px" }}
           onChange={(e) => handleOnChange(e)}
         ></input>
       </div>

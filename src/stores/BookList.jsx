@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import useBookStore from "./bookStore";
 import { useShallow } from "zustand/shallow";
+import "../App.css"
 
 function BookList() {
   const { books, noOfAvailable, noOfIssued, issueBook, returnBook } =
@@ -27,9 +28,9 @@ function BookList() {
           <Fragment key={book.id}>
             <li className="list-item">
               <span className="list-item-book">
-                <span>{book.id}</span>
-                <span>{book.name}</span>
-                <span>{book.author}</span>
+                <span>Id: {book.id}</span>
+                <span>Name: {book.name}</span>
+                <span>Author: {book.author}</span>
               </span>
               <div className="btn-grp">
                 <button
