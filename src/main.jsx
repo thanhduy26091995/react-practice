@@ -18,6 +18,7 @@ import Index from "./routes";
 import BookStoreApp from "./stores/BookStoreApp";
 import MovieApp from "./movies/MovieApp";
 import AxiosApp from "./axios/AxiosApp";
+import ReactHookFormApp from "./react-hook-form/ReactHookForm";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AxiosApp />
+    <ReactHookFormApp />
   </StrictMode>
 );
