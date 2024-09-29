@@ -25,7 +25,12 @@ function Headers({ renderCount, description }) {
 }
 
 function RegisterForm() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -35,11 +40,18 @@ function RegisterForm() {
       <input
         placeholder="First name"
         className="mt-2 p-2 border"
+        aria-invalid={errors.firstName ? "true" : "false"}
         {...register("firstName", {
           required: true,
           maxLength: 20,
         })}
       ></input>
+
+      {errors.firstName?.type === "required" && (
+        <p role="alert" className="text-red-600">
+          First name is required
+        </p>
+      )}
 
       <input
         placeholder="Last name"
@@ -50,6 +62,18 @@ function RegisterForm() {
         })}
       ></input>
 
+      {errors.lastName?.type === "required" && (
+        <p role="alert" className="text-red-600">
+          Last name is required
+        </p>
+      )}
+
+      {errors.lastName?.type === "pattern" && (
+        <p role="alert" className="text-red-600">
+          Last name is not correct format
+        </p>
+      )}
+
       <input
         placeholder="Age"
         className="mt-2 p-2 border"
@@ -59,6 +83,12 @@ function RegisterForm() {
           max: 28,
         })}
       ></input>
+
+      {(errors.age?.type === "min" || errors.age?.type === "max") && (
+        <p role="alert" className="text-red-600">
+          Age must be between 18 and 28
+        </p>
+      )}
 
       <input className="mt-2 p-2 border bg-white" type="submit"></input>
     </form>
